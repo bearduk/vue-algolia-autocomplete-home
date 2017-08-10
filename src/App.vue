@@ -3,8 +3,14 @@
     <img src="./assets/logo.png">
     <h1 v-html="msg"></h1>
 
+
+{{searchString}} 
+
+<form action="">
         <!-- <input type="text" id="acomp-search-input"> -->
-        <input type="search" id="acomp-search-input" class="aa-input-search" placeholder="Search for a course" name="search" autocomplete="on" />
+        <input type="search" v-model="searchString" id="acomp-search-input" class="aa-input-search" placeholder="Search for a course" name="search" autocomplete="on" /> <button @click.prevent="kSearchMethod">Search</button>
+</form>  
+
   </div>
 </template>
 
@@ -13,7 +19,14 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Test data msg returned &#10004; <br /> Vue is running, &#127852;'
+      msg: 'Test data msg returned &#10004; <br /> Vue is running, &#127852;',
+      searchString: ''  // initialised so that we can bind and use it on @click url if needed
+    }
+  },
+  methods: {
+    kSearchMethod() {
+      // console.log(this.searchString);
+      window.location = 'https://www.google.co.uk/search?q=' + this.searchString;
     }
   },
   mounted(){
