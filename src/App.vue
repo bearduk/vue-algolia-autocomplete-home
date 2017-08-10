@@ -3,8 +3,8 @@
     <img src="./assets/logo.png">
     <h1 v-html="msg"></h1>
 
-<input type="text" id="acomp-search-input">
-
+        <!-- <input type="text" id="acomp-search-input"> -->
+        <input type="search" id="acomp-search-input" class="aa-input-search" placeholder="Search for a course" name="search" autocomplete="on" />
   </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
 
         // init the algolia autocomplete
         var autocomplete = require('autocomplete.js');
-        console.log(autocomplete);
+        // console.log(autocomplete);
 
 
         //initialize autocomplete on search input (ID selector must match)
@@ -75,22 +75,23 @@ h1, h2 {
   font-weight: normal;
 }
 
-// ul {
-//   list-style-type: none;
-//   padding: 0;
-// }
-
-// li {
-//   display: inline-block;
-//   margin: 0 10px;
-// }
-
-// a {
-//   color: #42b983;
-// }
+a {
+  color: #42b983;
+}
 
 
 /* DEFAULT ALGOLIA TAKEN FROM https://github.com/algolia/autocomplete.js#installation */
+.levelName {
+  text-transform: capitalize;
+}
+
+#algolia-autocomplete-listbox-0 {
+/*  max-height: 210px;*/ /* note that keyboard arrow down doesn't select items */
+    overflow: scroll;
+    max-height: 210px;
+    overflow-y: auto;
+}
+
 .aa-input-container {
   display: inline-block;
   position: relative; }
