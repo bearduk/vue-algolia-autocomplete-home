@@ -1,21 +1,10 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <h1 v-html="msg"></h1>
+
+<input type="text" id="acomp-search-input">
+
   </div>
 </template>
 
@@ -24,8 +13,50 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Test data msg returned &#10004; <br /> Vue is running, &#127852;'
     }
+  },
+  mounted(){
+        
+        var self = this; 
+
+        var algoliasearch = require('algoliasearch');
+        // -> corporate alg
+        var client = algoliasearch("HT7VYJG3KU", "d37bbf3291b226676c9f3f1937e865d3");
+        var index = client.initIndex('dev_COURSES');
+
+        // init the algolia autocomplete
+        var autocomplete = require('autocomplete.js');
+        console.log(autocomplete);
+
+
+        //initialize autocomplete on search input (ID selector must match)
+        autocomplete('#acomp-search-input',
+        { hint: false, /* testing */debug: true, openOnFocus: true /* .testing */ }, {
+            source: autocomplete.sources.hits(index, {hitsPerPage: 100}),
+            //value to be displayed in input control after user's suggestion selection
+            displayKey: 'courseTitle',
+            //hash of templates used when rendering dataset
+            templates: {
+                empty: 'Nowt found duck',
+                footer: '<p>#keelebecause 8-)</p>',
+                //'suggestion' templating function used to render a single suggestion
+                suggestion: function(suggestion) {
+                  var kAutoCourseResult = '<a href="https://www.keele.ac.uk' + suggestion.urlPath + '"><span class="course_title">' +
+                    suggestion._highlightResult.courseTitle.value + '</span><span class="levelName"> | ' +
+                    // suggestion._highlightResult.courseLevel.value + '</span>';
+                    suggestion.courseLevelName + '</span></a>';
+                    return kAutoCourseResult;
+
+                }
+            }
+        }).on('autocomplete:selected', function(event, suggestion, dataset) {
+            location.href = 'https://www.keele.ac.uk/' + suggestion.urlPath;
+        });
+
+
+
+
   }
 }
 </script>
@@ -44,17 +75,60 @@ h1, h2 {
   font-weight: normal;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
+// ul {
+//   list-style-type: none;
+//   padding: 0;
+// }
 
-li {
+// li {
+//   display: inline-block;
+//   margin: 0 10px;
+// }
+
+// a {
+//   color: #42b983;
+// }
+
+
+/* DEFAULT ALGOLIA TAKEN FROM https://github.com/algolia/autocomplete.js#installation */
+.aa-input-container {
   display: inline-block;
-  margin: 0 10px;
+  position: relative; }
+.aa-input-search {
+  width: 300px;
+  border: 1px solid rgba(228, 228, 228, 0.6);
+  padding: 12px 28px 12px 12px;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; }
+  .aa-input-search::-webkit-search-decoration, .aa-input-search::-webkit-search-cancel-button, .aa-input-search::-webkit-search-results-button, .aa-input-search::-webkit-search-results-decoration {
+    display: none; }
+.aa-input-icon {
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  fill: #e4e4e4; }
+.aa-dropdown-menu {
+  background-color: #fff;
+  border: 1px solid rgba(228, 228, 228, 0.6);
+  min-width: 300px;
+  margin-top: 10px;
+  box-sizing: border-box; }
+.aa-suggestion {
+  padding: 12px;
+  cursor: pointer;
 }
+.aa-suggestion + .aa-suggestion {
+    border-top: 1px solid rgba(228, 228, 228, 0.6);
+}
+  .aa-suggestion:hover, .aa-suggestion.aa-cursor {
+    background-color: rgba(241, 241, 241, 0.35); }
+/* end */
 
-a {
-  color: #42b983;
-}
+
 </style>

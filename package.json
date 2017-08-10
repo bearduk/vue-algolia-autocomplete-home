@@ -9,6 +9,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "algoliasearch": "^3.24.3",
     "autocomplete.js": "^0.28.3",
     "vue": "^2.3.3"
   },
