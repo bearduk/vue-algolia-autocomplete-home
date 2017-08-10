@@ -39,7 +39,7 @@ export default {
             //hash of templates used when rendering dataset
             templates: {
                 empty: 'Nowt found duck',
-                footer: '<p>#keelebecause 8-)</p>',
+                footer: '<p><!-- #keelebecause 8-) --> <hr /></p>',
                 //'suggestion' templating function used to render a single suggestion
                 suggestion: function(suggestion) {
                   var kAutoCourseResult = '<a href="https://www.keele.ac.uk' + suggestion.urlPath + '"><span class="course_title">' +
@@ -87,9 +87,9 @@ a {
 
 #algolia-autocomplete-listbox-0 {
 /*  max-height: 210px;*/ /* note that keyboard arrow down doesn't select items */
-    overflow: scroll;
-    max-height: 210px;
-    overflow-y: auto;
+    // overflow: scroll;
+    // max-height: 160px;
+    // overflow-y: auto;
 }
 
 .aa-input-container {
