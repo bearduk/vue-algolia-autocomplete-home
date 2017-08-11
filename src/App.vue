@@ -48,7 +48,10 @@ export default {
         { hint: false, /* testing */debug: true, openOnFocus: true /* .testing */ }, {
             source: autocomplete.sources.hits(index, {hitsPerPage: 100}),
             //value to be displayed in input control after user's suggestion selection
+            // default
             displayKey: 'courseTitle',
+            // cb mutiple values for the suggestion if required:
+            // displayKey: function(suggestion) { return suggestion.courseTitle + ' ' + suggestion.courseLevel },
             //hash of templates used when rendering dataset
             templates: {
                 empty: 'Nowt found duck',
