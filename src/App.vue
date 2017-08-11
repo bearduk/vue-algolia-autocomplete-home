@@ -26,7 +26,7 @@ export default {
   methods: {
     kSearchMethod() {
       // console.log(this.searchString);
-      window.location = 'https://www.google.co.uk/search?q=' + this.searchString;
+      window.location = 'http://localhost:8081/?q=' + this.searchString + '&p=0&dFR%5BcourseLevelName%5D%5B0%5D=postgraduate%20taught';
     }
   },
   mounted(){
