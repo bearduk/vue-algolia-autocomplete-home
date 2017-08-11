@@ -46,7 +46,7 @@ export default {
         //initialize autocomplete on search input (ID selector must match)
         autocomplete('#acomp-search-input',
         { hint: false, /* testing */debug: true, openOnFocus: true /* .testing */ }, {
-            source: autocomplete.sources.hits(index, {hitsPerPage: 100}),
+            source: autocomplete.sources.hits(index, {hitsPerPage: 100 /*, facetFilters: 'courseLevel:pgt' */ }),
             //value to be displayed in input control after user's suggestion selection
             // default
             displayKey: 'courseTitle',
