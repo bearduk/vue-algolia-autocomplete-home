@@ -36,7 +36,7 @@ export default {
         var algoliasearch = require('algoliasearch');
         // -> corporate alg
         var client = algoliasearch("HT7VYJG3KU", "d37bbf3291b226676c9f3f1937e865d3");
-        var index = client.initIndex('dev_COURSES');
+        var index = client.initIndex('keele_main_COURSES');
 
         // init the algolia autocomplete
         var autocomplete = require('autocomplete.js');
